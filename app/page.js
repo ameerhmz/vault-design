@@ -11,8 +11,7 @@ import ApiKeyModal from '@/components/ApiKeyModal';
 import Toast from '@/components/Toast';
 import MinimalBackground from '@/components/MinimalBackground';
 import { INITIAL_TEMPLATES } from '@/data/templates';
-import { Layers, Shield } from 'lucide-react';
-import Link from 'next/link';
+import { Layers } from 'lucide-react';
 
 const CATEGORIES = ["All", "SaaS", "Portfolio", "E-commerce", "Neo-Brutalist", "AI App", "Cyberpunk", "3D/Interactive"];
 
@@ -257,13 +256,10 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <span className="font-bold text-[#ebe1dc]">UICraft.studio</span> — Web Design Showcase Library
           </div>
-          <div className="flex items-center gap-4">
-            <Link href="/admin" className="text-[#d4a373] hover:underline flex items-center gap-1.5 transition-colors font-medium">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Admin Dashboard</span>
-            </Link>
+          <div className="flex items-center gap-2 text-zinc-400">
+            <span>© 2026 UICraft.studio</span>
             <span>•</span>
-            <p>© 2026 Crafted with Next.js, Groq AI & Gemini 2.0.</p>
+            <span className="text-[#ebe1dc] font-medium">Developed by Ameer Hamza</span>
           </div>
         </div>
       </footer>

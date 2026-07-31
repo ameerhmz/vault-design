@@ -1,6 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
-import { Bookmark, Settings, Shield } from 'lucide-react';
+import { Bookmark, Settings } from 'lucide-react';
 
 export default function Navbar({ onOpenSettings, favoritesCount, onToggleFavoritesOnly, showFavoritesOnly }) {
   return (
@@ -25,16 +24,6 @@ export default function Navbar({ onOpenSettings, favoritesCount, onToggleFavorit
         {/* Right Actions */}
         <div className="flex items-center gap-2.5">
           
-          {/* Admin Dashboard Link */}
-          <Link
-            href="/admin"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#141418] text-zinc-400 border border-[#d4a373]/20 hover:text-white hover:border-[#d4a373]/50 transition-all text-xs font-medium"
-            title="Admin Control Center"
-          >
-            <Shield className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden sm:inline">Admin</span>
-          </Link>
-
           {/* Favorites Filter Button */}
           <button
             onClick={onToggleFavoritesOnly}

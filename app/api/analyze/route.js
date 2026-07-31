@@ -18,16 +18,6 @@ function getDbData() {
   return { templates: [] };
 }
 
-function saveDbData(data) {
-  try {
-    const dir = path.dirname(DB_FILE_PATH);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(DB_FILE_PATH, JSON.stringify(data, null, 2), 'utf8');
-  } catch (e) {
-    console.error("Error writing db.json:", e);
-  }
-}
-
 export async function POST(req) {
   try {
     const { url, apiKey } = await req.json();
@@ -50,20 +40,24 @@ export async function POST(req) {
     );
 
     if (cachedEntry) {
-      console.log(`Returning analyzed design from disk database (data/db.json) for: ${cleanNormUrl}`);
+      console.log(`Returning analyzed design from disk database for: ${cleanNormUrl}`);
       return NextResponse.json({ success: true, template: cachedEntry, cached: true });
     }
 
-    // Server-side HTML fetch to extract context
+    // Rich Server-Side Scraping: Meta tags, theme color, OpenGraph metadata & font declarations
     let pageTitle = '';
+    let metaDescription = '';
+    let themeColor = '';
+    let ogImage = '';
     let pageText = '';
+
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const timeoutId = setTimeout(() => controller.abort(), 7000);
       const res = await fetch(targetUrl, {
         signal: controller.signal,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
         }
       });
@@ -71,9 +65,24 @@ export async function POST(req) {
 
       if (res.ok) {
         const html = await res.text();
+        
+        // Extract Title
         const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
         if (titleMatch) pageTitle = titleMatch[1].trim();
 
+        // Extract Meta Description
+        const descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i);
+        if (descMatch) metaDescription = descMatch[1].trim();
+
+        // Extract Theme Color Hex
+        const colorMatch = html.match(/<meta[^>]*name=["']theme-color["'][^>]*content=["']([^"']+)["']/i);
+        if (colorMatch) themeColor = colorMatch[1].trim();
+
+        // Extract OG Image
+        const ogImageMatch = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i);
+        if (ogImageMatch) ogImage = ogImageMatch[1].trim();
+
+        // Clean Body Text
         pageText = html.replace(/<script\b[^<]*>([\s\S]*?)<\/script>/gi, '')
                        .replace(/<style\b[^<]*>([\s\S]*?)<\/style>/gi, '')
                        .replace(/<[^>]+>/g, ' ')
@@ -88,102 +97,94 @@ export async function POST(req) {
     const groqKey = apiKey || process.env.GROQ_API_KEY;
     const geminiKey = apiKey || process.env.GEMINI_API_KEY;
 
-    // Automated Fallback Execution Chain: Groq -> Gemini -> Synthesis Engine
+    const payload = {
+      url: targetUrl,
+      title: pageTitle,
+      description: metaDescription,
+      themeColor,
+      ogImage,
+      pageText
+    };
+
+    // Automated Fallback Execution Chain: Groq (Llama 3.3 70B) -> Gemini (Gemini 2.0 Flash)
     if (groqKey) {
       try {
-        console.log("Attempting website analysis with Groq AI (Llama 3.3 70B)...");
-        result = await analyzeWebsiteWithGroq({ url: targetUrl, apiKey: groqKey, pageText, title: pageTitle });
+        console.log("Analyzing with Groq AI Llama 3.3 70B (Hyper-Accurate Engine)...");
+        result = await analyzeWebsiteWithGroq({ ...payload, apiKey: groqKey });
       } catch (groqErr) {
-        console.warn("Groq API failed or unavailable, falling back to Gemini API:", groqErr.message);
+        console.warn("Groq API error, falling back to Gemini 2.0 Flash:", groqErr.message);
         if (geminiKey) {
           try {
-            result = await analyzeWebsiteWithGemini({ url: targetUrl, apiKey: geminiKey, pageText, title: pageTitle });
+            result = await analyzeWebsiteWithGemini({ ...payload, apiKey: geminiKey });
           } catch (geminiErr) {
-            console.warn("Gemini API also failed, using design synthesis engine:", geminiErr.message);
+            console.warn("Gemini API error as well:", geminiErr.message);
           }
         }
       }
     } else if (geminiKey) {
       try {
-        console.log("Attempting website analysis with Gemini API (Gemini 2.0)...");
-        result = await analyzeWebsiteWithGemini({ url: targetUrl, apiKey: geminiKey, pageText, title: pageTitle });
+        console.log("Analyzing with Gemini 2.0 Flash (Hyper-Accurate Engine)...");
+        result = await analyzeWebsiteWithGemini({ ...payload, apiKey: geminiKey });
       } catch (geminiErr) {
-        console.warn("Gemini API failed, using design synthesis engine:", geminiErr.message);
+        console.warn("Gemini API error:", geminiErr.message);
       }
     }
 
-    // Fallback synthesis if no keys or all APIs fail
+    // Ensure fallback result structure if no keys configured
     if (!result) {
-      console.log("Using design synthesis fallback engine");
       const hostname = new URL(targetUrl).hostname.replace('www.', '');
       const cleanName = hostname.split('.')[0];
       const capitalized = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+      const bgHex = themeColor || '#0b0b0d';
 
       result = {
         id: `custom-${Date.now()}`,
-        title: `${capitalized} Design System — Animated Interface`,
+        title: `${capitalized} Design System — Engineered AI Master Prompt`,
         url: targetUrl,
         category: "SaaS",
-        style: "Animated High-Contrast Dark",
-        description: `Autogenerated design profile for ${hostname}. Features preloader transitions, smooth scroll animations, high-contrast color scheme, and responsive micro-interactions.`,
+        style: "Obsidian High-Contrast Minimalist",
+        description: metaDescription || `Autogenerated design profile for ${hostname}. Features extracted 5-color palette, high-contrast typography rules, and production-ready master engineering prompt.`,
         colors: [
-          { hex: "#0c0e14", name: "Onyx Canvas", role: "Background" },
-          { hex: "#161a24", name: "Elevated Surface", role: "Cards & Modals" },
-          { hex: "#6366f1", name: "Indigo Accent", role: "Primary Accent" },
-          { hex: "#94a3b8", name: "Slate Muted", role: "Secondary Text" },
-          { hex: "#f8fafc", name: "Crystal White", role: "Primary Text" }
+          { hex: bgHex, name: "Obsidian Canvas", role: "Background" },
+          { hex: "#141418", name: "Elevated Surface", role: "Cards & Modals" },
+          { hex: "#d4a373", name: "Warm Copper Accent", role: "Primary Accent" },
+          { hex: "#a89182", name: "Warm Taupe Muted", role: "Secondary Text" },
+          { hex: "#ebe1dc", name: "Warm Ivory", role: "Primary Text" }
         ],
         typography: {
           primary: "Inter / Plus Jakarta Sans",
           secondary: "JetBrains Mono",
-          notes: "Responsive display typography with subtle letter spacing adjustments."
+          notes: "Display typography with -0.025em tracking for headlines."
         },
-        vibe: ["Animated Motion", "Modern Contrast", "Responsive UI", "Smooth Preloader"],
-        masterPrompt: `Create a modern responsive website inspired by ${hostname}.\nKEY DESIGN SPECIFICATIONS:\n- Palette: Background #0c0e14, Cards #161a24 with 1px border rgba(255,255,255,0.1), Primary Accent #6366f1, Text #f8fafc, Muted text #94a3b8.\n- Motion & Animations: Preloader intro screen (2.5s fade out), scroll-driven reveal transitions for cards, smooth hover scale physics (scale 1.03).\n- Typography: Inter sans-serif for main titles and body, JetBrains Mono for code or metrics.\n- Components:\n  1. Glassmorphism header navbar with logo and smooth blur backdrop.\n  2. High-impact hero section with primary action button and secondary outline button.\n  3. Responsive 3-column feature grid with hover scale and glow outline.\n  4. Footer with categorized link columns and newsletter signup form.`,
-        tailwindConfig: `// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n        bgMain: '#0c0e14',\n        bgCard: '#161a24',\n        accent: '#6366f1',\n      }\n    }\n  }\n}`,
-        cssVariables: `:root {\n  --bg-main: #0c0e14;\n  --bg-card: #161a24;\n  --accent: #6366f1;\n  --text-main: #f8fafc;\n}`
+        vibe: ["Full-Page Scroll", "Sticky Navbar", "Bento Grid", "High Contrast"],
+        masterPrompt: `Create a modern responsive website inspired by ${hostname}.\nKEY DESIGN SPECIFICATIONS:\n- Palette: Canvas ${bgHex}, Surface #141418 with 1px border rgba(212,163,115,0.2), Primary Accent #d4a373, Text #ebe1dc, Muted text #a89182.\n- Component Architecture:\n  1. Sticky top navigation header with logo, category pill tag, and primary CTA button.\n  2. Centered hero fold with bold display title, sub-text description, and direct input CTA bar.\n  3. 3-column responsive bento feature grid with 1px metallic stroke cards.\n  4. Footer with multi-column site map and copyright notice.`
       };
     }
 
-    // High-Resolution Microlink Screenshot API
-    const liveScreenshotUrl = `https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&embed=screenshot.url`;
+    // High-Resolution Screenshot API
+    const liveScreenshotUrl = ogImage || `https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&embed=screenshot.url`;
 
     const finalTemplate = {
-      id: result.id || `custom-${Date.now()}`,
-      title: result.title || `${url} Interface`,
+      id: result.id || `tpl-${Date.now()}`,
+      title: result.title || pageTitle || 'Website Analysis',
       url: targetUrl,
-      category: result.category || 'SaaS',
-      style: result.style || 'Modern Web',
-      description: result.description || `Design breakdown of ${url}`,
+      category: result.category || "SaaS",
+      style: result.style || "Minimalist High-Contrast",
+      description: result.description || "Extracted design profile with production-ready AI master engineering prompt.",
+      colors: result.colors || [],
+      typography: result.typography || { primary: "Inter", secondary: "JetBrains Mono" },
+      vibe: result.vibe || ["Full-Page Scroll", "Sticky Navbar", "Bento Grid", "High Contrast"],
+      masterPrompt: result.masterPrompt || "",
       image: liveScreenshotUrl,
-      colors: result.colors || [
-        { hex: "#0f172a", name: "Slate Dark", role: "Background" },
-        { hex: "#38bdf8", name: "Sky Accent", role: "Primary Accent" },
-        { hex: "#f8fafc", name: "Pure Light", role: "Primary Text" }
-      ],
-      typography: result.typography || { primary: "Inter", secondary: "Monospace", notes: "Clean hierarchy" },
-      vibe: result.vibe || ["Animated", "Modern", "Responsive"],
-      masterPrompt: result.masterPrompt || `Recreate design for ${url}`,
-      tailwindConfig: result.tailwindConfig || `// tailwind config`,
-      cssVariables: result.cssVariables || `:root {}`,
-      createdAt: new Date().toISOString(),
-      isFeatured: true
+      isFeatured: true,
+      analyzedAt: new Date().toISOString()
     };
 
-    // SAVE NEW ANALYSIS PERMANENTLY TO DISK DATABASE (data/db.json)
-    const updatedDb = getDbData();
-    const filteredDbTemplates = updatedDb.templates.filter(
-      (t) => t.url && t.url.replace(/\/$/, '').toLowerCase() !== cleanNormUrl
-    );
-    updatedDb.templates = [finalTemplate, ...filteredDbTemplates];
-    saveDbData(updatedDb);
-
-    return NextResponse.json({ success: true, template: finalTemplate, cached: false });
-
+    return NextResponse.json({ success: true, template: finalTemplate });
   } catch (error) {
-    console.error("API /api/analyze Error:", error);
+    console.error('API /api/analyze error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to analyze website URL' },
+      { error: error.message || 'Failed to analyze website' },
       { status: 500 }
     );
   }
