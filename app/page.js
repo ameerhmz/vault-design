@@ -255,7 +255,7 @@ export default function Home() {
       <footer className="border-t border-white/[0.06] bg-zinc-950 py-8 text-center text-xs text-zinc-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-zinc-300">Vault.design</span> — Web Design Library
+            <span className="font-semibold text-zinc-300">UICraft.studio</span> — Web Design Architecture Library
           </div>
           <div className="flex items-center gap-4">
             <Link href="/admin" className="text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors">

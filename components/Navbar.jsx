@@ -7,14 +7,14 @@ export default function Navbar({ onOpenAnalyzer, onOpenSettings, favoritesCount,
     <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#09090b]/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* Clean Human Logo */}
+        {/* UICraft.studio Branding */}
         <div className="flex items-center gap-2.5 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-900 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-105 transition-transform">
-            V
+            U
           </div>
           <div className="flex items-center gap-2">
             <span className="text-base font-bold text-zinc-100 tracking-tight">
-              Vault<span className="text-zinc-500 font-normal">.design</span>
+              UICraft<span className="text-zinc-500 font-normal">.studio</span>
             </span>
             <span className="px-2 py-0.5 text-[10px] font-medium text-zinc-400 bg-zinc-900 border border-white/[0.08] rounded-md">
               Library
