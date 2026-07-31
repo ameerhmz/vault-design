@@ -2,8 +2,8 @@
 
 @layer base {
   body {
-    background-color: #08080a;
-    color: #f4f4f5;
+    background-color: #0b0b0d;
+    color: #ebe1dc;
     font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -17,30 +17,30 @@
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #08080a;
+  background: #0b0b0d;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #23232a;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #d4a373;
 }
 
-/* Award-Winning Editorial Obsidian Card */
-.editorial-card {
-  background: rgba(15, 15, 18, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Dark Copper Metallic Editorial Card */
+.copper-editorial-card {
+  background: rgba(20, 20, 24, 0.85);
+  border: 1px solid rgba(212, 163, 115, 0.22);
   border-radius: 1rem;
   backdrop-filter: blur(16px);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
 }
 
-.editorial-card:hover {
-  border-color: rgba(255, 255, 255, 0.22);
+.copper-editorial-card:hover {
+  border-color: rgba(212, 163, 115, 0.55);
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.8), 0 0 20px 0 rgba(212, 163, 115, 0.12);
 }
 
 /* Swatch pill animation */
@@ -49,7 +49,7 @@
 }
 .swatch-pill:hover {
   transform: scale(1.3);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 12px rgba(212, 163, 115, 0.5);
   z-index: 10;
 }
 
@@ -61,4 +61,11 @@
 
 .animate-fade-in {
   animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Metallic text effect */
+.text-copper-gradient {
+  background: linear-gradient(135deg, #f4e8dc 0%, #d4a373 50%, #a89182 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

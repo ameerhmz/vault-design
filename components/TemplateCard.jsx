@@ -24,7 +24,7 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
   return (
     <div
       onClick={() => onSelect(template)}
-      className="editorial-card group flex flex-col overflow-hidden cursor-pointer"
+      className="copper-editorial-card group flex flex-col overflow-hidden cursor-pointer"
     >
       {/* Visual Website Preview Banner */}
       <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
@@ -36,10 +36,10 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
             e.target.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop";
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-transparent to-transparent opacity-70" />
 
         {/* Category Pill Tag */}
-        <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-md bg-zinc-950/85 border border-white/10 text-[11px] font-medium text-zinc-300 backdrop-blur-md">
+        <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-md bg-[#0b0b0d]/90 border border-[#d4a373]/30 text-[11px] font-medium text-[#d4a373] backdrop-blur-md">
           {template.category}
         </div>
 
@@ -53,7 +53,7 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
                 e.stopPropagation();
                 onDeleteTemplate(template.id);
               }}
-              className="p-1.5 rounded-md bg-zinc-950/85 text-zinc-400 border border-white/10 hover:text-red-400 hover:bg-zinc-800 backdrop-blur-md transition-all shadow-md"
+              className="p-1.5 rounded-md bg-[#0b0b0d]/90 text-zinc-400 border border-[#d4a373]/20 hover:text-red-400 hover:bg-zinc-800 backdrop-blur-md transition-all shadow-md"
               title="Delete template"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -63,7 +63,7 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
           {/* Quick Copy Prompt Button */}
           <button
             onClick={handleQuickCopyPrompt}
-            className="p-1.5 rounded-md bg-zinc-950/85 text-zinc-300 border border-white/10 hover:text-white hover:bg-zinc-800 backdrop-blur-md transition-all shadow-md"
+            className="p-1.5 rounded-md bg-[#0b0b0d]/90 text-zinc-300 border border-[#d4a373]/20 hover:text-white hover:border-[#d4a373]/60 backdrop-blur-md transition-all shadow-md"
             title="Quick Copy AI Master Prompt"
           >
             {copiedPrompt ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -77,12 +77,12 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
             }}
             className={`p-1.5 rounded-md backdrop-blur-md border transition-all shadow-md ${
               isFavorite
-                ? 'bg-zinc-100 text-zinc-900 border-white'
-                : 'bg-zinc-950/85 text-zinc-400 border-white/10 hover:text-white'
+                ? 'bg-[#d4a373] text-[#0b0b0d] border-[#d4a373] font-bold'
+                : 'bg-[#0b0b0d]/90 text-zinc-400 border-[#d4a373]/20 hover:text-white hover:border-[#d4a373]/60'
             }`}
             title={isFavorite ? 'Remove from saved' : 'Save template'}
           >
-            <Bookmark className={`w-3.5 h-3.5 ${isFavorite ? 'fill-zinc-900' : ''}`} />
+            <Bookmark className={`w-3.5 h-3.5 ${isFavorite ? 'fill-[#0b0b0d]' : ''}`} />
           </button>
         </div>
       </div>
@@ -93,18 +93,18 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
         {/* Title & Description */}
         <div className="mb-3">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="text-sm font-bold text-zinc-100 group-hover:text-white transition-colors line-clamp-1">
+            <h3 className="text-sm font-bold text-[#ebe1dc] group-hover:text-[#d4a373] transition-colors line-clamp-1">
               {template.title}
             </h3>
-            <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-zinc-200 transition-colors shrink-0" />
+            <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-[#d4a373] transition-colors shrink-0" />
           </div>
-          <p className="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-[#a89182] mt-1 line-clamp-2 leading-relaxed">
             {template.description}
           </p>
         </div>
 
         {/* Color Palette Swatches */}
-        <div className="mt-auto pt-3 border-t border-white/[0.06] flex items-center justify-between">
+        <div className="mt-auto pt-3 border-t border-[#d4a373]/15 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             {template.colors?.slice(0, 5).map((color, idx) => (
               <button
@@ -123,7 +123,7 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
             ))}
           </div>
 
-          <span className="text-[11px] font-medium text-zinc-400 group-hover:text-zinc-200 transition-colors">
+          <span className="text-[11px] font-medium text-[#a89182] group-hover:text-[#ebe1dc] transition-colors">
             {template.style}
           </span>
         </div>
