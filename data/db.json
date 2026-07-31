@@ -1,6 +1,57 @@
 {
   "templates": [
     {
+      "id": "custom-1785516233257",
+      "title": "Vercel Login",
+      "url": "https://vault-design.vercel.app",
+      "category": "SaaS",
+      "style": "Glassmorphic SaaS",
+      "description": "The Vercel login page features a simple and clean design with a prominent call-to-action, utilizing a limited color palette and a mix of sans-serif fonts. The layout is based on a centered container with a maximum width, ensuring a consistent user experience across various screen sizes.",
+      "image": "https://api.microlink.io/?url=https%3A%2F%2Fvault-design.vercel.app&screenshot=true&embed=screenshot.url",
+      "colors": [
+        {
+          "hex": "#ffffff",
+          "name": "Canvas Background",
+          "role": "Background"
+        },
+        {
+          "hex": "#f7f7f7",
+          "name": "Panel Surface",
+          "role": "Cards"
+        },
+        {
+          "hex": "#047bff",
+          "name": "Primary Accent",
+          "role": "Primary CTA"
+        },
+        {
+          "hex": "#333333",
+          "name": "Secondary Accent",
+          "role": "Highlight"
+        },
+        {
+          "hex": "#000000",
+          "name": "Primary Text",
+          "role": "Headlines"
+        }
+      ],
+      "typography": {
+        "primary": "Inter",
+        "secondary": "JetBrains Mono",
+        "notes": "The primary font is used for headlines and body text, with a font size of 16px and a line height of 24px. The secondary font is used for code snippets and has a font size of 14px."
+      },
+      "vibe": [
+        "Centered Container",
+        "Simple Color Scheme",
+        "Glassmorphic Elements"
+      ],
+      "masterPrompt": "Design a login page with a centered container that has a maximum width of 400px, featuring a glassmorphic card with a subtle shadow effect. The card contains a headline with the text 'Log in to Vercel' in the primary font, size 24px, and a sub-headline with the text 'Continue with your email or one of the following options' in the primary font, size 16px. Below the headline, include a form with an email input field and a password input field, both with a height of 40px and a padding of 12px. The primary call-to-action button should have the text 'Continue with Email' in the primary font, size 16px, and a background color of #047bff. Include additional call-to-action buttons for Google, GitHub, ChatGPT, SAML SSO, and Passkey, each with a height of 40px and a padding of 12px. The buttons should have a hover effect with a scale factor of 1.05 and a border glow color of #047bff. At the bottom of the card, include a link with the text 'Don't have an account? Sign Up' in the primary font, size 14px. The page should have a background color of #ffffff and use the primary font for all text elements. Ensure the design is fully responsive and accessible.",
+      "tailwindConfig": "// tailwind config",
+      "cssVariables": ":root {}",
+      "createdAt": "2026-07-31T16:43:53.257Z",
+      "isFeatured": true
+    },
+    {
       "id": "custom-1785513878173",
       "title": "Groq: Fast, Low-Cost Inference Platform",
       "url": "https://groq.com",
