@@ -24,7 +24,7 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
   return (
     <div
       onClick={() => onSelect(template)}
-      className="human-card-clean group flex flex-col overflow-hidden cursor-pointer"
+      className="editorial-card group flex flex-col overflow-hidden cursor-pointer"
     >
       {/* Visual Website Preview Banner */}
       <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
@@ -36,7 +36,7 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
             e.target.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop";
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-transparent to-transparent opacity-60" />
 
         {/* Category Pill Tag */}
         <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-md bg-zinc-950/85 border border-white/10 text-[11px] font-medium text-zinc-300 backdrop-blur-md">

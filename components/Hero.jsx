@@ -11,16 +11,16 @@ export default function Hero({ onDirectAnalyze }) {
   };
 
   return (
-    <section className="relative pt-20 pb-14 text-center">
+    <section className="relative pt-20 pb-12 text-center">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-6">
         
-        {/* Crisp Display Headline (No tacky gradients) */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+        {/* Crisp Display Headline */}
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-100 leading-[1.08]">
           Engineered AI Prompts.
         </h1>
 
         {/* Editorial Subtitle */}
-        <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed font-normal">
           Explore handcrafted design profiles. Extract 5-color palettes, copy tailored prompts for coding assistants, or analyze any website link with 1 click.
         </p>
 
