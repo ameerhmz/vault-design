@@ -1,0 +1,56 @@
+{
+  "templates": [
+    {
+      "id": "custom-1785513878173",
+      "title": "Groq: Fast, Low-Cost Inference Platform",
+      "url": "https://groq.com",
+      "category": "SaaS",
+      "style": "Full-Page Scroll Minimalist",
+      "description": "Groq's website features a clean, minimalist design with a focus on showcasing the speed and affordability of their inference platform, utilizing a full-page scroll to guide users through various sections, including a sticky navbar and interactive buttons. The website effectively communicates the benefits of Groq's custom silicon and LPU-based stack, highlighting its edge over competitors and featuring testimonials from notable partners like the McLaren F1 Team.",
+      "image": "https://api.microlink.io/?url=https%3A%2F%2Fgroq.com&screenshot=true&embed=screenshot.url",
+      "colors": [
+        {
+          "hex": "#ffffff",
+          "name": "White",
+          "role": "Background"
+        },
+        {
+          "hex": "#1a1d23",
+          "name": "Dark Gray",
+          "role": "Primary Text"
+        },
+        {
+          "hex": "#3498db",
+          "name": "Blue",
+          "role": "Primary CTA"
+        },
+        {
+          "hex": "#2ecc71",
+          "name": "Green",
+          "role": "Accent"
+        },
+        {
+          "hex": "#f1c40f",
+          "name": "Yellow",
+          "role": "Highlight"
+        }
+      ],
+      "typography": {
+        "primary": "Inter",
+        "secondary": "Montserrat",
+        "notes": "The primary font, Inter, is used for headings and body text, while Montserrat is used for secondary text and accents."
+      },
+      "vibe": [
+        "Full-Page Scroll",
+        "Sticky Navbar",
+        "Interactive Buttons",
+        "Minimalist Design"
+      ],
+      "masterPrompt": "Design and develop a SaaS website for Groq, a fast and low-cost inference platform. The website should feature a clean, minimalist design with a focus on showcasing the speed and affordability of the platform. The header should include a sticky navbar with a logo, navigation links, and a CTA button to get started. The hero fold should feature a headline, subtext, and action buttons, along with a media visual showcasing the Groq LPU. The scroll sections should include feature grids, interactive showcase panels, specs/metrics, and testimonials from notable partners like the McLaren F1 Team. The buttons and interactive menus should have hover states, active button physics, and dropdown menus. The footer should include a multi-column sitemap with links to pricing, solutions, and community resources, as well as social icons and a newsletter signup form. The website should be optimized for speed and performance, with a focus on delivering a seamless user experience. The design should be responsive and accessible, with a clear and consistent visual hierarchy. The tone should be professional and approachable, with a focus on communicating the benefits and value of the Groq platform. The website should include the following pages: homepage, pricing, solutions, community, and blog. The blog should feature articles on AI, machine learning, and inference, with a focus on showcasing the expertise and thought leadership of the Groq team. The community page should include resources for developers, including documentation, APIs, and community forums. The pricing page should include clear and transparent pricing information, with a focus on showcasing the value and affordability of the Groq platform.",
+      "tailwindConfig": "// tailwind config",
+      "cssVariables": ":root {}",
+      "createdAt": "2026-07-31T16:04:38.173Z",
+      "isFeatured": true
+    }
+  ]
+}
