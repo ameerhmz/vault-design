@@ -9,6 +9,7 @@ import TemplateDetailModal from '@/components/TemplateDetailModal';
 import UrlAnalyzerModal from '@/components/UrlAnalyzerModal';
 import ApiKeyModal from '@/components/ApiKeyModal';
 import Toast from '@/components/Toast';
+import MinimalBackground from '@/components/MinimalBackground';
 import { INITIAL_TEMPLATES } from '@/data/templates';
 import { Layers, Shield } from 'lucide-react';
 import Link from 'next/link';
@@ -182,17 +183,16 @@ export default function Home() {
   }, [templates, favorites, searchQuery, selectedCategory, showFavoritesOnly]);
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col relative selection:bg-zinc-100 selection:text-zinc-950">
+    <div className="min-h-screen bg-[#0b0b0d] text-[#ebe1dc] flex flex-col relative selection:bg-[#d4a373] selection:text-[#0b0b0d]">
       
+      {/* Liquid Copper Mesh Background */}
+      <MinimalBackground />
+
       {/* Toast Notification */}
       <Toast toast={toast} onClose={() => setToast(null)} />
 
       {/* Navigation Header */}
       <Navbar
-        onOpenAnalyzer={() => {
-          setAnalyzerInitialUrl('');
-          setIsAnalyzerOpen(true);
-        }}
         onOpenSettings={() => setIsSettingsOpen(true)}
         favoritesCount={favorites.length}
         showFavoritesOnly={showFavoritesOnly}
@@ -214,7 +214,7 @@ export default function Home() {
       />
 
       {/* Gallery Cards Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 flex-1">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 flex-1 relative z-10">
         {filteredTemplates.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredTemplates.map((template) => (
@@ -231,19 +231,19 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center rounded-2xl bg-zinc-900/40 border border-white/[0.08] max-w-xl mx-auto">
+          <div className="py-20 text-center rounded-2xl bg-[#141418]/80 border border-[#d4a373]/20 max-w-xl mx-auto">
             <div className="p-3 rounded-xl bg-zinc-800 text-zinc-300 w-10 h-10 mx-auto flex items-center justify-center mb-3">
               <Layers className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-bold text-zinc-100 mb-1">No Design Templates Found</h3>
-            <p className="text-xs text-zinc-400 mb-5">Try resetting search filters or analyze a new website link.</p>
+            <h3 className="text-sm font-bold text-[#ebe1dc] mb-1">No Design Templates Found</h3>
+            <p className="text-xs text-[#a89182] mb-5">Try resetting search filters or analyze a new website link.</p>
             <button
               onClick={() => {
                 setSearchQuery('');
                 setSelectedCategory('All');
                 setShowFavoritesOnly(false);
               }}
-              className="px-3.5 py-1.5 rounded-lg bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white transition-all"
+              className="px-[#d4a373] text-[#0b0b0d] text-xs font-bold hover:bg-[#e4b383] transition-all px-3.5 py-1.5 rounded-lg"
             >
               Reset Filters
             </button>
@@ -252,13 +252,13 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.06] bg-zinc-950 py-8 text-center text-xs text-zinc-500">
+      <footer className="border-t border-[#d4a373]/15 bg-[#0b0b0d] py-8 text-center text-xs text-[#a89182] relative z-10">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-zinc-300">UICraft.studio</span> — Web Design Architecture Library
+            <span className="font-bold text-[#ebe1dc]">UICraft.studio</span> — Web Design Showcase Library
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/admin" className="text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors">
+            <Link href="/admin" className="text-[#d4a373] hover:underline flex items-center gap-1.5 transition-colors font-medium">
               <Shield className="w-3.5 h-3.5 text-emerald-400" />
               <span>Admin Dashboard</span>
             </Link>

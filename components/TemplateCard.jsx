@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Bookmark, Check, ArrowUpRight, Copy, Trash2 } from 'lucide-react';
+import { Bookmark, Check, ArrowUpRight } from 'lucide-react';
 
-export default function TemplateCard({ template, onSelect, isFavorite, onToggleFavorite, onDeleteTemplate, onCopyHex, onShowToast }) {
+export default function TemplateCard({ template, onSelect, isFavorite, onToggleFavorite, onCopyHex }) {
   const [copiedHex, setCopiedHex] = useState(null);
-  const [copiedPrompt, setCopiedPrompt] = useState(false);
 
   const handleColorClick = (e, hex) => {
     e.stopPropagation();
@@ -11,14 +10,6 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
     setCopiedHex(hex);
     onCopyHex(hex);
     setTimeout(() => setCopiedHex(null), 1600);
-  };
-
-  const handleQuickCopyPrompt = (e) => {
-    e.stopPropagation();
-    navigator.clipboard.writeText(template.masterPrompt);
-    setCopiedPrompt(true);
-    if (onShowToast) onShowToast(`Copied AI prompt for ${template.title}!`, 'copy');
-    setTimeout(() => setCopiedPrompt(false), 2000);
   };
 
   return (
@@ -43,33 +34,8 @@ export default function TemplateCard({ template, onSelect, isFavorite, onToggleF
           {template.category}
         </div>
 
-        {/* Action Buttons Top Right */}
-        <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
-          
-          {/* Delete Button */}
-          {onDeleteTemplate && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onDeleteTemplate(template.id);
-              }}
-              className="p-1.5 rounded-md bg-[#0b0b0d]/90 text-zinc-400 border border-[#d4a373]/20 hover:text-red-400 hover:bg-zinc-800 backdrop-blur-md transition-all shadow-md"
-              title="Delete template"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-            </button>
-          )}
-
-          {/* Quick Copy Prompt Button */}
-          <button
-            onClick={handleQuickCopyPrompt}
-            className="p-1.5 rounded-md bg-[#0b0b0d]/90 text-zinc-300 border border-[#d4a373]/20 hover:text-white hover:border-[#d4a373]/60 backdrop-blur-md transition-all shadow-md"
-            title="Quick Copy AI Master Prompt"
-          >
-            {copiedPrompt ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-          </button>
-
-          {/* Bookmark Button */}
+        {/* Single Bookmark Action Button Top Right */}
+        <div className="absolute top-3 right-3 z-20">
           <button
             onClick={(e) => {
               e.stopPropagation();

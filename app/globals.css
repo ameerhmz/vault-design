@@ -69,3 +69,31 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Hardware-Accelerated 0% GPU/CPU Liquid Wave Animations */
+@keyframes liquidWaveSlow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(60px, -30px, 0) scale(1.08) rotate(4deg); }
+}
+
+@keyframes liquidWaveMid {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(-50px, 40px, 0) scale(1.05) rotate(-3deg); }
+}
+
+@keyframes liquidWaveFast {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(40px, 20px, 0) scale(1.06); }
+}
+
+.animate-liquid-wave-slow {
+  animation: liquidWaveSlow 22s ease-in-out infinite;
+}
+
+.animate-liquid-wave-mid {
+  animation: liquidWaveMid 18s ease-in-out infinite;
+}
+
+.animate-liquid-wave-fast {
+  animation: liquidWaveFast 26s ease-in-out infinite;
+}

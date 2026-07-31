@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { Bookmark, Settings, Plus, Shield } from 'lucide-react';
+import { Bookmark, Settings, Shield } from 'lucide-react';
 
-export default function Navbar({ onOpenAnalyzer, onOpenSettings, favoritesCount, onToggleFavoritesOnly, showFavoritesOnly }) {
+export default function Navbar({ onOpenSettings, favoritesCount, onToggleFavoritesOnly, showFavoritesOnly }) {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#d4a373]/15 bg-[#0b0b0d]/85 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -60,15 +60,6 @@ export default function Navbar({ onOpenAnalyzer, onOpenSettings, favoritesCount,
             title="API Settings (Gemini / Groq)"
           >
             <Settings className="w-4 h-4" />
-          </button>
-
-          {/* Analyze URL Primary Button */}
-          <button
-            onClick={onOpenAnalyzer}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#d4a373] text-[#0b0b0d] font-bold text-xs hover:bg-[#e4b383] shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all ml-1"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Analyze URL</span>
           </button>
 
         </div>
